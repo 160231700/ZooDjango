@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate
 from django.contrib import messages
 from django.conf import settings
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordForm
-from .models import Record
+from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordForm, BookHotelTicket, BookZooTicket
+from .models import Record, BookingHotel, BookingZoo
 
 
 # Create your views here.
@@ -27,6 +27,17 @@ def register(request):
     context = {'form':form}
 
     return render(request,'website/register.html',context=context)
+
+def hotel(request):
+    form = BookHotelTicket()
+    context = {'form':form}
+    return render(request, 'website/hotel.html',context=context)
+
+def zoo(request):
+    return render(request, 'website/zoo.html')
+
+def safari(request):
+    return render(request, 'website/safari.html')
 
 # login a user
 

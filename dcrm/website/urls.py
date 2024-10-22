@@ -10,6 +10,13 @@ urlpatterns = [
 
     path('user-logout', views.user_logout, name="user-logout"),
 
+    path('hotel', views.hotel, name="hotel"),
+
+    path('zoo', views.zoo, name="zoo"),
+
+    path('safari', views.safari, name="safari"),
+
+
     #View a single record
 
     path('record/<int:pk>', views.singular_record,name="record"),

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-center">
     <a class="navbar-brand main-heading" href="{% url '' %}">  
-      &nbsp; Django demo App
+      &nbsp; Riget Adventure Zoo
     </a>
     <button
       class="navbar-toggler"
@@ -15,6 +15,11 @@
      </button>
         <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto">
+          &nbsp;     &nbsp;     &nbsp;
+          <li class="nav-item">
+            <a class="nav-link" href="{% url '' %}"> Home &nbsp; <i class="fa fa-home" aria-hidden="true"></i> </a>
+          </li>
+          
            &nbsp;     &nbsp;     &nbsp;
            {% if user.is_authenticated %}
              <li class="nav-item">
