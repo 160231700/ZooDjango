@@ -23,7 +23,7 @@ class BookingHotel(models.Model):
     booking_ID = models.AutoField(primary_key=True, editable=False)
     Arrival_date = models.DateField(max_length=10)
     Departure_date = models.DateField(max_length=10)
-    Hotel_Room = models.DateField(max_length=5)
+    Hotel_Room = models.CharField(max_length=5)
     Hotel_adult = models.BooleanField()
     Hotel_cost = models.IntegerField(max_length=10)
     customer_ID = models.ForeignKey(Record, on_delete=models.CASCADE)

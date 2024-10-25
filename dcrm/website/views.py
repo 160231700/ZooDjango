@@ -28,9 +28,20 @@ def register(request):
 
     return render(request,'website/register.html',context=context)
 
+
 def hotel(request):
-    form = BookHotelTicket()
+
+
+    form = BookHotelTicket(customer_ID = 0)
     context = {'form':form}
+    if request.method == "POST":
+        form = BookHotelTicket(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Ticket Booked, P Diddy on his way")
+        else:
+            print("What the sigma")
+            print(form.errors)
     return render(request, 'website/hotel.html',context=context)
 
 def zoo(request):
@@ -64,7 +75,8 @@ def my_login(request):
 
 def user_logout(request):
 
-    auth.logout(request.messages.success(request, "Logout success!"))
+    auth.logout(request)
+    messages.success(request, "Logout success!")
     return redirect("my-login")
 
 #Dashboard -
