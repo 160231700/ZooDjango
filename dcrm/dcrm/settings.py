@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'website',
     'crispy_forms',
-    # 'crispy_bootstrap4'
+    'crispy_bootstrap4',
 ]
 
 
@@ -87,6 +87,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'website.Record'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -106,6 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL ='website.Record'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

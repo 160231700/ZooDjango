@@ -32,13 +32,13 @@ class BookHotelTicket(forms.ModelForm):
         labels ={
             "Hotel_adult": 'Are you over 18?',
         }
-    def __init__(self, *args, **kwargs):
-        user_id = kwargs.pop('customer_ID',None)
-        super(BookHotelTicket, self).__init__(*args, **kwargs)
-        if user_id is not None:
-            self.fields['customer_ID'].queryset = Record.objects.filter(customer_ID=user_id)
-        else:
-            self.fields['customer_ID'].queryset = Record.objects.none()
+    # def __init__(self, *args, **kwargs):
+    #     user_id = kwargs.pop('customer_ID',None)
+    #     super(BookHotelTicket, self).__init__(*args, **kwargs)
+    #     if user_id is not None:
+    #         self.fields['customer_ID'].queryset = Record.objects.filter(customer_ID=user_id)
+    #     else:
+    #         self.fields['customer_ID'].queryset = Record.objects.none()
 class BookZooTicket(forms.ModelForm):
     class Meta:
         model= BookingZoo

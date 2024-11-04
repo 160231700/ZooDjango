@@ -1,21 +1,35 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+# class CustomUser(AbstractUser):
+#     loyalty_points = models.IntegerField(default=0)
+#     creation_data = models.DateTimeField(auto_now_add= True)
+#     customer_ID = models.AutoField(primary_key=True, editable=False)
+#     first_name = models.CharField(max_length = 20)
+#     last_name = models.CharField(max_length = 50)
+#     email = models.CharField(max_length = 50)
+#     phone = models.CharField(max_length=20)
+#     postcode = models.CharField(max_length=10)
+#     street_name = models.CharField(max_length = 20)
+#     city = models.CharField(max_length = 50)
+#     house_number = models.CharField(max_length=10)
 
 # Create your models here.
-class Record(models.Model):
+class Record(AbstractUser):
 
+    loyalty_points = models.IntegerField(default=0)
     creation_data = models.DateTimeField(auto_now_add= True)
-    customer_ID = models.AutoField(primary_key=True, editable=False)
-    first_name = models.CharField(max_length = 20)
-    last_name = models.CharField(max_length = 50)
-    email = models.CharField(max_length = 50)
+    # first_name = models.CharField(max_length = 20)
+    # last_name = models.CharField(max_length = 50)
+    # email = models.CharField(max_length = 50)
     phone = models.CharField(max_length=20)
     postcode = models.CharField(max_length=10)
     street_name = models.CharField(max_length = 20)
     city = models.CharField(max_length = 50)
     house_number = models.CharField(max_length=10)
 
-    def __str__(self):
-        return self.first_name + " " + self.last_name
+    # def __str__(self):
+    #     return self.first_name + " " + self.last_name
 #  fields = ['first_name','last_name','email','phone','postcode','street_name','city','house_number']
 
 class BookingHotel(models.Model):

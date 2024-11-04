@@ -32,7 +32,7 @@ def register(request):
 def hotel(request):
 
 
-    form = BookHotelTicket(customer_ID = 0)
+    form = BookHotelTicket()
     context = {'form':form}
     if request.method == "POST":
         form = BookHotelTicket(request.POST)
