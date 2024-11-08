@@ -47,6 +47,11 @@ def hotel(request):
 def zoo(request):
     return render(request, 'website/zoo.html')
 
+def HotelConfirmation(request):
+    HotelTicket = BookingHotel.objects.all()
+    context = {'ticket': HotelTicket}
+    return render(request, 'website/Hotel.html', context)
+
 def safari(request):
     return render(request, 'website/safari.html')
 
@@ -82,10 +87,15 @@ def user_logout(request):
 #Dashboard -
 @login_required(login_url='my-login')
 def dashboard(request):
-    my_records = Record.objects.all()
-    context = {'records': my_records}
-    # print(context)
-    return render(request, 'website/dashboard.html', context=context)
+    if request.user.is_superuser:
+        my_records = Record.objects.all()
+        context = {'records': my_records}
+        # print(context)
+        return render(request, 'website/dashboard.html', context=context)
+    else:
+        messages.error(request, "YOU ARE NOT AUTHORISED TO ACCESS THIS PAGE")
+        return redirect("")
+
 
 
 #Create a record

@@ -8,8 +8,8 @@ from .models import Record, BookingHotel, BookingZoo
 class CreateUserForm(UserCreationForm):
 
     class Meta:
-        model=User
-        fields=['username','password1','password2']
+        model=Record
+        fields=['password1','password2','username','first_name','last_name','email','phone','postcode','street_name','city','house_number']
 
 class LoginForm(AuthenticationForm):
     username=forms.CharField(widget=TextInput())
@@ -28,10 +28,18 @@ class UpdateRecordForm(forms.ModelForm):
 class BookHotelTicket(forms.ModelForm):
     class Meta:
         model = BookingHotel
-        fields = ['Arrival_date', 'Departure_date','Hotel_Room','Hotel_adult','Hotel_cost','customer_ID']
+        fields = ['Arrival_date', 'Departure_date','Hotel_Room','Hotel_adult','customer_ID']
         labels ={
             "Hotel_adult": 'Are you over 18?',
         }
+        widgets = {
+            'Arrival_date': forms.DateInput(attrs={'type': 'date'}),
+            'Departure_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['Arrival_date'].widget.attrs.update({"input":"Date"})
+        # Arrival_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
     # def __init__(self, *args, **kwargs):
     #     user_id = kwargs.pop('customer_ID',None)
     #     super(BookHotelTicket, self).__init__(*args, **kwargs)

@@ -16,6 +16,7 @@ urlpatterns = [
 
     path('safari', views.safari, name="safari"),
 
+    path('HotelConfirmation', views.HotelConfirmation, name="HotelConfirmation"),
 
     #View a single record
 
