@@ -4,6 +4,7 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.widgets import PasswordInput, TextInput
 from .models import Record, BookingHotel, BookingZoo
+from datetime import datetime
 
 class CreateUserForm(UserCreationForm):
 
@@ -28,17 +29,31 @@ class UpdateRecordForm(forms.ModelForm):
 class BookHotelTicket(forms.ModelForm):
     class Meta:
         model = BookingHotel
-        fields = ['Arrival_date', 'Departure_date','Hotel_Room','Hotel_adult','customer_ID']
+        fields = ['Arrival_date', 'Departure_date','Hotel_Room','Hotel_adult','Hotel_cost','customer_ID']
         labels ={
             "Hotel_adult": 'Are you over 18?',
         }
         widgets = {
             'Arrival_date': forms.DateInput(attrs={'type': 'date'}),
             'Departure_date': forms.DateInput(attrs={'type': 'date'}),
+            'Hotel_cost': forms.HiddenInput(),
         }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['Arrival_date'].widget.attrs.update({"input":"Date"})
+        # def clean(self):
+        #     cleaned_data = super().clean()
+        #     Arrival_date = cleaned_data.get('Arrival_date')
+        #     Departure_date = cleaned_data.get('Departure_date')
+
+
+        #     if Departure_date < Arrival_date:
+        #         raise forms.ValidationError("End date cannot be earlier than start date.")
+
+        #     time_difference = Departure_date - Arrival_date
+        #     cleaned_data['total_cost'] = time_difference.days * 100  # Adjust rate as needed
+
+        # pass
         # Arrival_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
     # def __init__(self, *args, **kwargs):
     #     user_id = kwargs.pop('customer_ID',None)

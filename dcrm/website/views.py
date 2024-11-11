@@ -6,7 +6,9 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordForm, BookHotelTicket, BookZooTicket
 from .models import Record, BookingHotel, BookingZoo
-
+from datetime import datetime
+from datetime import timedelta
+from datetime import timezone
 
 # Create your views here.
 
@@ -29,20 +31,50 @@ def register(request):
     return render(request,'website/register.html',context=context)
 
 
+
 def hotel(request):
-
-
     form = BookHotelTicket()
-    context = {'form':form}
+    context = {'form': form}
+
     if request.method == "POST":
         form = BookHotelTicket(request.POST)
         if form.is_valid():
+            # Calculate duration and cost if applicable
+            # Arrival_date = form.cleaned_data['Arrival_date']
+            # Departure_date = form.cleaned_data['Departure_date']
+            # duration_in_days = (Departure_date - Arrival_date).days
+            # ... Your logic to calculate duration and cost based on arrival_date and departure_date
+            # rate_per_day = 100
+            # total_cost = duration_in_days * rate_per_day
+            # Pass calculated values (if any) to the template context
+            # context.update({
+            #     'duration_in_days': duration_in_days,  # Replace with your calculated value
+            #     'total_cost': total_cost,            # Replace with your calculated value
+            # })
+            
             form.save()
             messages.success(request, "Ticket Booked, P Diddy on his way")
+            print("saved")
+            
+            ad = request.POST.get('Arrival_date')
+            dd = request.POST.get('Departure_date')
+
+            print(dd)
+            Arrival_date = datetime.strptime(ad, "%Y-%m-%d")
+            Departure_date = datetime.strptime(dd, "%Y-%m-%d")
+            new_variable = Departure_date-Arrival_date
+            print(int(new_variable.days))
+
+            context = {"Arrival": ad, "Depart":dd}
+            #context.update(data)
+
+
+            return render(request, 'website/HotelConfirmation.html', context=context)
         else:
             print("What the sigma")
             print(form.errors)
-    return render(request, 'website/hotel.html',context=context)
+
+    return render(request, 'website/hotel.html', context=context)
 
 def zoo(request):
     return render(request, 'website/zoo.html')
