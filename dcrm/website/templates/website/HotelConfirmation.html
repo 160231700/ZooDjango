@@ -3,11 +3,14 @@
 {%block content%}
 
 
-test
-
-{% for a in arrival  %}
-<p> {{a}} </p>
-{% endfor %}
-
+<p> This ticket is valid from {{ticket.Arrival_date}} to {{ticket.Departure_date}} </p>
+<p> This ticket is for an adult :{{ticket.Hotel_adult}} </p>
+<p> You will be staying in room {{ticket.Hotel_Room}} </p>
+<p> Overall cost: £{{ overall_cost }} </p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary w-100 btn-block p-2">Book your ticket innit&nbsp; <i class="fa fa-user" aria-hidden="true"></i></button>
+</form>
+<a href="{% url 'delete_bookingH'%}" class="btn btn-primary w-100 btn-block p-2">Cancel your ticket bruv&nbsp; <i class="fa fa-cross" aria-hidden="true"></i></a>
 
 {%endblock%}

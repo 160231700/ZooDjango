@@ -18,6 +18,8 @@ urlpatterns = [
 
     path('HotelConfirmation', views.HotelConfirmation, name="HotelConfirmation"),
 
+    path('delete_bookingH', views.delete_bookingH, name='delete_bookingH'),
+
     #View a single record
 
     path('record/<int:pk>', views.singular_record,name="record"),

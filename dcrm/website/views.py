@@ -39,6 +39,14 @@ def hotel(request):
     if request.method == "POST":
         form = BookHotelTicket(request.POST)
         if form.is_valid():
+            # ad = request.POST.get('Arrival_date')
+            # dd = request.POST.get('Departure_date')
+
+            # print(dd)
+            
+            # print(overall_cost)
+            # context = {"Arrival": ad, "Depart":dd, "overall_cost":overall_cost}
+
             # Calculate duration and cost if applicable
             # Arrival_date = form.cleaned_data['Arrival_date']
             # Departure_date = form.cleaned_data['Departure_date']
@@ -52,24 +60,16 @@ def hotel(request):
             #     'total_cost': total_cost,            # Replace with your calculated value
             # })
             
-            form.save()
+            
             messages.success(request, "Ticket Booked, P Diddy on his way")
             print("saved")
             
-            ad = request.POST.get('Arrival_date')
-            dd = request.POST.get('Departure_date')
+            
 
-            print(dd)
-            Arrival_date = datetime.strptime(ad, "%Y-%m-%d")
-            Departure_date = datetime.strptime(dd, "%Y-%m-%d")
-            new_variable = Departure_date-Arrival_date
-            print(int(new_variable.days))
-
-            context = {"Arrival": ad, "Depart":dd}
             #context.update(data)
+            form.save()
 
-
-            return render(request, 'website/HotelConfirmation.html', context=context)
+            return redirect('HotelConfirmation')
         else:
             print("What the sigma")
             print(form.errors)
@@ -80,9 +80,27 @@ def zoo(request):
     return render(request, 'website/zoo.html')
 
 def HotelConfirmation(request):
-    HotelTicket = BookingHotel.objects.all()
-    context = {'ticket': HotelTicket}
-    return render(request, 'website/Hotel.html', context)
+    HotelTicket = BookingHotel.objects.latest("customer_ID_id")
+    Arrival_date = HotelTicket.Arrival_date
+    Departure_date = HotelTicket.Departure_date
+    new_variable = Departure_date-Arrival_date
+    overall_cost = int(new_variable.days) * 70
+    context = {'ticket': HotelTicket, 'overall_cost':overall_cost}
+    if request.method == "POST":
+        HotelTicket.Hotel_cost=overall_cost
+        HotelTicket.save()
+        messages.success(request, "Ticket Booked, P Diddy on his way")
+    return render(request, 'website/HotelConfirmation.html', context)
+
+def delete_bookingH(request):
+    print("Message error")
+    HotelTicket = BookingHotel.objects.latest("customer_ID_id")
+    HotelTicket.delete()
+    
+    messages.error(request,"Your booking has been deleted. Please contact Elon at your earliest convenience.")
+    return redirect(request,'')
+    
+    
 
 def safari(request):
     return render(request, 'website/safari.html')
