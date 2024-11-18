@@ -39,13 +39,15 @@ class BookingHotel(models.Model):
     Departure_date = models.DateField(max_length=10)
     Hotel_Room = models.CharField(max_length=5)
     Hotel_adult = models.BooleanField()
-    Hotel_cost = models.IntegerField(max_length=10, default=0)
+    Hotel_cost = models.IntegerField(default=0)
     customer_ID = models.ForeignKey(Record, on_delete=models.CASCADE)
 
 class BookingZoo(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     admission_ID = models.AutoField(primary_key=True, editable=False)
     valid_date = models.DateField(max_length=10)
-    zoo_adult = models.BooleanField()
-    zoo_cost = models.IntegerField(max_length=10)
+    zoo_adult = models.IntegerField(default=0)
+    zoo_child = models.IntegerField(default=0)
+    zoo_cost = models.IntegerField(default=10)
+    points = models.IntegerField(default=0)
     customer_ID = models.ForeignKey(Record, on_delete=models.CASCADE)

@@ -31,4 +31,7 @@
       <img  src="static/images/Food.jpg">
     </div>
 </div>
+{% if user.is_authenticated %}
+    {% include 'website/Zoo_Booking.html'%}
+{% endif %}
 {% endblock %}

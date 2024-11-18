@@ -65,4 +65,19 @@ class BookHotelTicket(forms.ModelForm):
 class BookZooTicket(forms.ModelForm):
     class Meta:
         model= BookingZoo
-        fields = ['valid_date','zoo_adult','zoo_cost']
+        fields = ['valid_date','zoo_adult','zoo_child','zoo_cost','points']
+
+        labels = {
+            "valid_date": "What day you wish to enter the zoo",
+            "zoo_adult": "How many adults is this ticket is valid for?",
+            "zoo_child": "How many children is this ticket valid for?",
+            "points": "How many loyalty points this purchase will generate"
+        }
+        widgets = {
+            "valid_date":forms.DateInput(attrs={'type':'date'}),
+            "points": forms.HiddenInput(),
+            "zoo_cost": forms.HiddenInput(),
+        }
+
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,*kwargs)

@@ -77,7 +77,37 @@ def hotel(request):
     return render(request, 'website/hotel.html', context=context)
 
 def zoo(request):
-    return render(request, 'website/zoo.html')
+    form = BookZooTicket()
+    context = {'form':form}
+    if request.method == "POST":
+        updated_request = request.POST.copy()
+        updated_request.update({'hotel_user_id_id':request.user})
+
+        form = BookZooTicket(updated_request)
+        if form.is_valid():
+            obj = form.save(commit=False)
+
+            valid_date = obj.valid_date
+
+            total_cost = int(obj.zoo_adult) * 30 \
+                        + int(obj.zoo_child) * 20
+            
+            points = int(total_cost / 5)
+
+            obj.points = points
+            obj.zoo_cost = total_cost
+            obj.customer_ID = request.user
+
+            obj.save()
+            print("Form completed successfully. No errors here.")
+            messages.success(request, "Zoo ticket booked successfully")
+            return redirect('')
+    else:
+        print("What the sigma")
+
+    
+
+    return render(request, 'website/zoo.html',context=context)
 
 def HotelConfirmation(request):
     HotelTicket = BookingHotel.objects.latest("customer_ID_id")
